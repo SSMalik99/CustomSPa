@@ -1,0 +1,16 @@
+body{
+    padding: 0;
+    margin: 0;
+}
+.page-traveler{
+    cursor: pointer;
+}
+.d-none{
+    display: none;
+}
+.loading-image{
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    z-index: 10;
+}

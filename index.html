@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="relation" content="prettiesPreety">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Custom SPA</title>
+
+</head>
+<body class="bg-dark">
+    <div id="page-loader">
+        <div class="image">
+            <img id="page-loadin-image" src="./loading1.gif"  class="loading-image">
+        </div>
+    </div>
+    <div id="main-navbar">
+    </div>
+
+    <div id="main-content">
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+    <script src="./index.js"></script>
+
+    <script>
+
+        const addNavbar = () => {
+            $('#main-navbar').html(mainContent.navbar);
+            menuTraveler();
+        }
+
+        const addContent = () => {
+            let content = sessionStorage.getItem('content');
+            if(typeof content == "undefined" || content == null ){
+                sessionStorage.setItem('content', 'home');
+            }
+            switch (content) {
+                case 'home':
+                    $('#main-content').html(mainContent.home)    
+                    break;
+                case 'contact':
+                    $('#main-content').html(mainContent.contact)
+                    break;
+                case 'about':
+                    $('#main-content').html(mainContent.about)
+                    break;
+            
+                default:
+                    $('#main-content').html(mainContent.home)    
+                    break;
+            }
+            $('#page-loadin-image').removeClass('loading-image')
+            $('#page-loader').addClass('d-none');
+            
+        }
+
+
+        
+        const menuTraveler = () =>{
+            $('.page-traveler').click((e) => {
+                e.preventDefault();
+                $('#page-loader').removeClass('d-none');
+                $('#page-loadin-image').addClass('loading-image')
+                url = $(e.target).closest('a').data('href');
+                sessionStorage.setItem('content', url);
+                addContent()
+            })
+        }
+
+
+        $(document).ready(() => {
+            addNavbar();
+            addContent();
+        })
+
+    </script>
+</body>
+</html>
